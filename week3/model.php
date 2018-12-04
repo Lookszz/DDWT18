@@ -1,3 +1,5 @@
+
+
 <?php
 /**
  * Model
@@ -257,4 +259,44 @@ function count_series($pdo){
 function redirect($location){
     header(sprintf('Location: %s', $location));
     die();
+}
+
+/**
+ * This function sets the header to the MIME type
+ */
+
+function http_content_type($content_type){
+    header('Content-Type: ' .$content_type);
+}
+
+/**
+ * This function sets username and password as credentials
+ */
+
+function set_cred($username, $password){
+    return [
+        'username'=> $username,
+        'password'=> $password
+    ];
+}
+
+/**
+ * This function checks if the credentials are valid
+ */
+
+function check_cred($cred){
+    if (!isset($_SERVER['PHP_AUTH_USER'])){
+        return False;
+    }
+    else {
+        if ($_SERVER['PHP_AUTH_USER'] != $cred['username']){
+            return False;
+        }
+        elseif ($_SERVER['PHP_AUTH_PW'] != $cred['password']){
+            return False;
+        }
+        else {
+            return True;
+        }
+    }
 }
